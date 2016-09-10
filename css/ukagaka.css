@@ -1,0 +1,97 @@
+a:link {
+    text-decoration: none;
+    color: #444;
+}
+
+.dock {
+    position: fixed;
+    top: 30px;
+    right: 10px;
+}
+
+.dock .content {
+    padding: 3px 10px;
+    font-size: 12px;
+    position: relative;
+    width: 1.5em;
+    line-height: 1.1em;
+}
+
+.ukagaka {
+    opacity: 0.8;
+    /*width: auto;*/
+    /*height: auto;*/
+    position: fixed;
+    bottom: 50px;
+    right: 0px;
+    z-index: 99;
+}
+
+.ukagaka .shell {
+    width: auto;
+    height: auto;
+    background-repeat: no-repeat;
+    background-position-x:right;
+    background-position-y:bottom;
+    position: relative;
+    /*top: 0;*/
+    bottom: 0;
+    right:0;
+    /*left: 0;*/
+    float: right;
+}
+
+.ukagaka .bubble{
+    float: left;
+    position: relative;
+    bottom: 50px;
+    /*margin-left: -200px;*/
+}
+
+.ukagaka .bubble .top{
+    /*float: left;*/
+    /*display: block;*/
+    width: 200px;
+    height: 5px;
+    overflow: hidden;
+    background: url(../img/bubble_top.gif) no-repeat;
+}
+
+.ukagaka .bubble .dialog{
+    /*float: left;*/
+    /*display: block;*/
+    cursor: pointer;
+    overflow: hidden;
+    width: 200px;
+    /*margin: 1px 0 0;*/
+    padding: 0.5em 1em;
+    z-index: 1;
+    background-image: url(../img/bubble_dialog.gif);
+    background-repeat: repeat-y;
+}
+
+.ukagaka .bubble .bottom {
+    /*float: left;*/
+    /*display: block;*/
+    width: 200px;
+    height: 10px;
+    overflow: hidden;
+    background: url(../img/bubble_bottom.gif) no-repeat;
+}
+
+.ukagaka .bubble .dialog .content{
+    line-height: 1.5em;
+    text-align: left;
+}
+
+.ukagaka .bubble .dialog .menu{
+    line-height: 1.1em;
+    /*text-align: center;*/
+}
+
+.ukagaka .bubble .tools {
+    position: absolute;
+    top: -5px;
+    left: 10px;
+    z-index: 2;
+}
