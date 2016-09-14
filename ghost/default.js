@@ -1,31 +1,32 @@
 var ghost = {
-    action: [
-        //['shownotice', '显示公告'],
-        ['chatTochuncai', '聊&nbsp;&nbsp;&nbsp;&nbsp;天'],
-        ['eat', '吃 零 食'],
-        ['transform','变身'],
-        //['meetparents', '见 家 长'],
-        //['lifetimechuncai', '生存时间']
-    ],
-
     data: {
         eat_times: 0, //吃了几次
         talkself_arr: [],
         faces: {
             '1': "face1.gif",
             '2': "face2.gif",
-            '3': "face3.gif"
+            '3': "face3.gif",
+            '4': "face4.png",
         },
+        menu: [
+            //['shownotice', '显示公告'],
+            //['chatTochuncai', '聊&nbsp;&nbsp;&nbsp;&nbsp;天'],
+            //['eat', '吃 零 食'],
+            ['transform', '变身'],
+            //['meetparents', '见 家 长'],
+            //['lifetimechuncai', '生存时间']
+        ],
     },
-
-    init: function(Ukagaka) {
+    shell: {},
+    init: function(shell) {
         //some ghost init...
+        this.shell = shell
     },
 
     /**
      * 事件列表
      */
-    
+
 
     /**
      * 显示公告
@@ -33,8 +34,15 @@ var ghost = {
     // shownotice: function() {
     //     this.getdata("getnotice");
     //     ghost.data.Ukagaka.setFace(1);
-    //     this.data.Ukagaka.closeChuncaiMenu();
+    //     this.shell.closeChuncaiMenu();
     // },
+
+    /**
+     * 变身
+     */
+    transform: function() {
+        this.shell.setFace(4)
+    },
 
     /**
      * 与春菜聊天
@@ -59,9 +67,9 @@ var ghost = {
     },
 
     showInput: function() {
-        this.data.Ukagaka.closeChuncaiMenu();
-        this.data.Ukagaka.closeNotice();
-        this.data.Ukagaka.chuncaiSay("............?");
+        this.shell.closeMenu();
+        //this.shell.closeNotice();
+        this.shell.chuncaiSay("............?");
         //ghost.data.Ukagaka.setFace(1);
         $(".wcc .addinput").css("display", "block");
     },
@@ -73,7 +81,7 @@ var ghost = {
 
     inp_r: function() {
         this.closeInput();
-        this.data.Ukagaka.chuncaiSay('不聊天了吗？(→_→)');
+        this.shell.chuncaiSay('不聊天了吗？(→_→)');
         ghost.data.Ukagaka.setFace(3);
     },
 
@@ -89,36 +97,35 @@ var ghost = {
      * 春菜喂食系统
      */
     foods: function() {
-        this.data.Ukagaka.closeChuncaiMenu();
-        this.data.Ukagaka.closeNotice();
+        this.shell.closeMenu();
         this.getdata("foods");
     },
 
     eatfood: function(obj, setCookie) {
-        var gettimes = this.data.Ukagaka.tools.getCookie("eattimes");
+        var gettimes = this.shell.tools.getCookie("eattimes");
         if (parseInt(gettimes) > parseInt(9)) {
-            this.data.Ukagaka.chuncaiSay("主人是个大混蛋！！");
+            this.shell.chuncaiSay("主人是个大混蛋！！");
             ghost.data.Ukagaka.setFace(3);
             this.closechuncai_evil();
         } else if (parseInt(gettimes) > parseInt(7)) {
-            this.data.Ukagaka.chuncaiSay(".....................肚子要炸了，死也不要再吃了～～！！！TAT");
+            this.shell.chuncaiSay(".....................肚子要炸了，死也不要再吃了～～！！！TAT");
             ghost.data.Ukagaka.setFace(3);
         } else if (parseInt(gettimes) == parseInt(5)) {
-            this.data.Ukagaka.chuncaiSay("我已经吃饱了，不要再吃啦......");
+            this.shell.chuncaiSay("我已经吃饱了，不要再吃啦......");
             ghost.data.Ukagaka.setFace(3);
         } else if (parseInt(gettimes) == parseInt(3)) {
-            this.data.Ukagaka.chuncaiSay("多谢款待，我吃饱啦～～～ ╰（￣▽￣）╭");
+            this.shell.chuncaiSay("多谢款待，我吃饱啦～～～ ╰（￣▽￣）╭");
             ghost.data.Ukagaka.setFace(2);
         } else {
             var id = obj.replace("f", '');
             this.getdata('eatsay', id);
         }
         this.data.eattimes++;
-        this.data.Ukagaka.tools.setCookie("eattimes", this.data.eattimes, 60 * 10 * 1000);
+        this.shell.tools.setCookie("eattimes", this.data.eattimes, 60 * 10 * 1000);
     },
 
     closechuncai_evil: function() {
-        this.data.Ukagaka.stopTalkSelf();
+        this.shell.stopTalkSelf();
         $(".wcc .showchuncaimenu").css("display", "none");
         setTimeout(function() {
             $(".wcc.smchuncai").fadeOut(1200);
@@ -131,10 +138,10 @@ var ghost = {
      * 见我家长
      */
     meetparents: function() {
-        this.data.Ukagaka.closeChuncaiMenu();
-        this.data.Ukagaka.closeNotice();
+        this.shell.closeChuncaiMenu();
+        this.shell.closeNotice();
         //$("#getmenu").css("display", "none");
-        this.data.Ukagaka.chuncaiSay("马上就跳转到我父母去了哦～～～");
+        this.shell.chuncaiSay("马上就跳转到我父母去了哦～～～");
         ghost.data.Ukagaka.setFace(2);
         setTimeout(function() {
             window.location.href = 'https://github.com/DrayChou/ukagaka/';
@@ -145,8 +152,8 @@ var ghost = {
      * 生存时间
      */
     lifetimechuncai: function() {
-        this.data.Ukagaka.closeChuncaiMenu();
-        this.data.Ukagaka.closeNotice();
+        this.shell.closeChuncaiMenu();
+        this.shell.closeNotice();
         ghost.data.Ukagaka.setFace(2);
         this.getdata('showlifetime');
     },
@@ -155,14 +162,14 @@ var ghost = {
     /**
      * 读取数据
      */
-     getdata: function(el, id) {
-		//$("#dialog_chat").fadeOut("normal");
+    getdata: function(el, id) {
+        //$("#dialog_chat").fadeOut("normal");
         $(".wcc .tempsaying").css('display', "none");
         $(".wcc .dialog_chat_loading").fadeIn("normal");
-	     
-	     $.getJSON( ghost.data.Ukagaka.data._weichuncai_path, { time: new Date().getTime() } )
-			.done(function( dat ) {
-				$(".wcc .dialog_chat_loading").css('display', "none");
+
+        $.getJSON(ghost.data.Ukagaka.data._weichuncai_path, { time: new Date().getTime() })
+            .done(function(dat) {
+                $(".wcc .dialog_chat_loading").css('display', "none");
                 //$("#dialog_chat").fadeIn("normal");
                 $(".wcc .tempsaying").css('display', "");
 
@@ -230,9 +237,9 @@ var ghost = {
                     return arr;
 
                 }
-			})
-			.fail(function( jqxhr, textStatus, error ) {
-				ghost.data.Ukagaka.chuncaiSay('好像出错了，是什么错误呢...请联系管理猿'+textStatus+error+jqxhr);
-		});
+            })
+            .fail(function(jqxhr, textStatus, error) {
+                ghost.data.Ukagaka.chuncaiSay('好像出错了，是什么错误呢...请联系管理猿' + textStatus + error + jqxhr);
+            });
     }
 };

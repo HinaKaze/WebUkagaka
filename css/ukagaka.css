@@ -54,7 +54,7 @@ a:link {
     width: 200px;
     height: 5px;
     overflow: hidden;
-    background: url(../img/bubble_top.gif) no-repeat;
+    background-repeat: no-repeat;
 }
 
 .ukagaka .bubble .dialog{
@@ -66,7 +66,6 @@ a:link {
     /*margin: 1px 0 0;*/
     padding: 0.5em 1em;
     z-index: 1;
-    background-image: url(../img/bubble_dialog.gif);
     background-repeat: repeat-y;
 }
 
@@ -76,7 +75,7 @@ a:link {
     width: 200px;
     height: 10px;
     overflow: hidden;
-    background: url(../img/bubble_bottom.gif) no-repeat;
+    background-repeat: no-repeat;
 }
 
 .ukagaka .bubble .dialog .content{
